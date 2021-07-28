@@ -27,6 +27,11 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+LOGIN_URL = 'account:login'
+LOGIN_REDIRECT_URL = 'account:panel'
+LOGOUT_REDIRECT_URL = 'account:login'
+
+
 
 # Application definition
 
@@ -60,7 +65,9 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            BASE_DIR.joinpath('templates'),
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

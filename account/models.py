@@ -31,6 +31,7 @@ class User (AbstractUser):
     email = models.EmailField(
         verbose_name='ایمیل',
         validators=[EmailValidator()],
+        unique=True,
         error_messages={'blank': 'این فیلد اجباریست'},
     )
     is_vip = models.BooleanField(
