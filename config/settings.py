@@ -40,6 +40,9 @@ INSTALLED_APPS = [
 
     #local
     'account.apps.AccountConfig',
+
+    #3rd parthy
+    'sslserver'
 ]
 
 MIDDLEWARE = [
