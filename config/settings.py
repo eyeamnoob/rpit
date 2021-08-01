@@ -48,7 +48,8 @@ INSTALLED_APPS = [
     'account.apps.AccountConfig',
 
     #3rd parthy
-    'sslserver'
+    'sslserver',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [
@@ -145,7 +146,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    "static",
+    BASE_DIR/"static",
 ]
 
 # Default primary key field type

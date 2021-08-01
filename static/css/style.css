@@ -1,12 +1,14 @@
+@import url('https://v1.fontapi.ir/css/Sahel');
+
 body {
     background-color: #F3EBF6;
-    font-family: 'Ubuntu', sans-serif;
+    font-family: 'Sahel';
 }
 
 .main {
     background-color: #FFFFFF;
     width: 400px;
-    height: 400px;
+    height: auto;
     margin: 7em auto;
     border-radius: 1.5em;
     box-shadow: 0px 11px 35px 2px rgba(0, 0, 0, 0.14);
@@ -15,7 +17,7 @@ body {
 .sign {
     padding-top: 40px;
     color: #8C55AA;
-    font-family: 'Ubuntu', sans-serif;
+    font-family: 'Sahel';
     font-weight: bold;
     font-size: 23px;
 }
@@ -37,7 +39,7 @@ margin-bottom: 50px;
 margin-left: 46px;
 text-align: center;
 margin-bottom: 27px;
-font-family: 'Ubuntu', sans-serif;
+font-family: 'Sahel';
 }
 
 form.form1 {
@@ -61,7 +63,7 @@ margin-bottom: 50px;
 margin-left: 46px;
 text-align: center;
 margin-bottom: 27px;
-font-family: 'Ubuntu', sans-serif;
+font-family: 'Sahel';
 }
 
 
@@ -80,7 +82,7 @@ font-family: 'Ubuntu', sans-serif;
     padding-right: 40px;
     padding-bottom: 10px;
     padding-top: 10px;
-    font-family: 'Ubuntu', sans-serif;
+    font-family: 'Sahel';
     margin-left: 35%;
     font-size: 13px;
     box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.04);

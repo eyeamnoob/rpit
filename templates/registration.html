@@ -1,4 +1,27 @@
-<form method="POST"> {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit">
-</form>
+{% load static %}
+{% load widget_tweaks %}
+
+<html>
+
+<head>
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ثبت نام</title>
+</head>
+
+<body>
+  <div class="main">
+    <p class="sign" align="center">ثبت نام</p>
+    <form class="form1" method="POST">{% csrf_token %}
+      {{ form.first_name | add_class:"un" | attr:"placeholder:نام"}}
+      {{ form.last_name | add_class:"un" | attr:"placeholder:نام خانوادگی"}}
+      {{ form.username | add_class:"un" | attr:"placeholder:لقب"}}
+      {{ form.password1 | add_class:"pass" | attr:"placeholder:گذرواژه"}}
+      {{ form.password2 | add_class:"pass" | attr:"placeholder:تکرار گذرواژه"}}
+      {{ form.email | add_class:"un" | attr:"placeholder:ایمیل"}}
+      <input class="submit" align="center" type="submit" value="ثبت نام">
+    </div>
+     
+</body>
+
+</html>
