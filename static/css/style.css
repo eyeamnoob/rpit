@@ -5,6 +5,11 @@ body {
     font-family: 'Sahel';
 }
 
+.error{
+    color: red;
+    text-align: center;
+}
+
 .main {
     background-color: #FFFFFF;
     width: 400px;

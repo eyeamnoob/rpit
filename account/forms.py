@@ -18,6 +18,7 @@ class CustomAuthenticationForm(AuthenticationForm):
 class CustomUserCreationForm(UserCreationForm):
     error_messages = {
         'password_mismatch': "گذرواژه ها مطابقت ندارند",
+        'password_too_similar': "شبیه است"
     }
 
     password1 = forms.CharField(

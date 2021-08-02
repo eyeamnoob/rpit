@@ -13,12 +13,29 @@
   <div class="main">
     <p class="sign" align="center">ثبت نام</p>
     <form class="form1" method="POST">{% csrf_token %}
-      {{ form.first_name | add_class:"un" | attr:"placeholder:نام"}}
-      {{ form.last_name | add_class:"un" | attr:"placeholder:نام خانوادگی"}}
-      {{ form.username | add_class:"un" | attr:"placeholder:لقب"}}
-      {{ form.password1 | add_class:"pass" | attr:"placeholder:گذرواژه"}}
-      {{ form.password2 | add_class:"pass" | attr:"placeholder:تکرار گذرواژه"}}
-      {{ form.email | add_class:"un" | attr:"placeholder:ایمیل"}}
+		{% for error in form.non_field_errors %}
+			<div class="error" dir="rtl">
+				<strong>{{ error | escape }}</strong>
+				<hr>
+			</div>
+		{% endfor %}
+
+		{% if form.errors %}
+			{% for field in form %}
+				{% for error in field.errors %} 
+					<div class="error" dir="rtl">
+						<strong>{{ error | escape }}</strong>
+						<hr>
+					</div>
+				{% endfor %}
+			{% endfor %}
+		{% endif %}
+    	{{ form.first_name | add_class:"un" | attr:"placeholder:نام"}}
+    	{{ form.last_name | add_class:"un" | attr:"placeholder:نام خانوادگی"}}
+    	{{ form.username | add_class:"un" | attr:"placeholder:لقب"}}
+    	{{ form.password1 | add_class:"pass" | attr:"placeholder:گذرواژه"}}
+    	{{ form.password2 | add_class:"pass" | attr:"placeholder:تکرار گذرواژه"}}
+    	{{ form.email | add_class:"un" | attr:"placeholder:ایمیل"}}
       <input class="submit" align="center" type="submit" value="ثبت نام">
     </div>
      

@@ -10,19 +10,32 @@
 </head>
 
 <body>
-{% if form.non_field_errors %}
-    <div class="errors">
-		{% for error in form.non_field_errors %}
-			<span> {{ error }} </span>
-		{% endfor %}
-	</div>
-{% endif %}
   <div class="main">
     <p class="sign" align="center">ورود</p>
     <form class="form1" method="POST">{% csrf_token %}
+		{% for error in form.non_field_errors %}
+				<div class="error" dir="rtl">
+					<strong>{{ error | escape }}</strong>
+					<hr>
+				</div>
+		{% endfor %}
+
+		{% if form.errors %}
+			{% for field in form %}
+				{% for error in field.errors %} 
+					<div class="error" dir="rtl">
+						<strong>{{ error | escape }}</strong>
+						<hr>
+					</div>
+				{% endfor %}
+			{% endfor %}
+		{% endif %}
+
       {{ form.username | add_class:"un" | attr:"placeholder:لقب"}}
       {{ form.password | add_class:"pass" | attr:"placeholder:گذرواژه"}}
+
       <input class="submit" align="center" type="submit" value="ورود">
+
       <p class="forgot" align="center"><a href="#">گذرواژه تان را فراموش کردید؟</p>      
     </div>
      
