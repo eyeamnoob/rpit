@@ -1,11 +1,11 @@
 from django.db import models
 from account.models import User
 from django.shortcuts import get_object_or_404
+import datetime
 
 # Create your models here.
 
 class Post(models.Model):
-    count = 0
     title = models.CharField(
         max_length=100,
         blank=True,
@@ -14,7 +14,7 @@ class Post(models.Model):
         verbose_name='عنوان'
     )
     image = models.ImageField(
-        upload_to='%Y/%M/%D',
+        upload_to='%y/%m/%d',
         verbose_name='عکس',
         null=True,
         blank=True,
@@ -52,9 +52,13 @@ class Post(models.Model):
         except:
             pass
         if self.image:
-            self.image.name = str(self.user.pk) + "_" + str(self.user.get_username()) + '_' + str(Post.count) + '.' + self.image.name.split('.')[-1]
-            Post.count += 1
+            self.image.name = str(self.user.pk) + "_" + str(self.user.get_username()) + '_' + datetime.datetime.now().strftime("%y-%m-%d-%H-%M") + '.' + self.image.name.split('.')[-1]
         return super().save(force_insert=force_insert, force_update=force_update, using=using, update_fields=update_fields)
+
+    def delete(self, *args, **kwargs):
+        if self.image:
+            self.image.delete()
+        return super().delete(*args, **kwargs)
     
     class Meta:
         verbose_name = 'پست'
