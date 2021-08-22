@@ -1,10 +1,11 @@
 from django.db import models
 from account.models import User
-from django.utils import timezone
+from django.shortcuts import get_object_or_404
 
 # Create your models here.
 
 class Post(models.Model):
+    count = 0
     title = models.CharField(
         max_length=100,
         blank=True,
@@ -45,8 +46,14 @@ class Post(models.Model):
         return str(self.title) + " - " + str(self.body[0:15]) + '...'
     
     def save(self, force_insert=False, force_update=False, using=None, update_fields=None) -> None:
+        try:
+            obj = get_object_or_404(Post, pk=self.pk)
+            obj.image.delete()
+        except:
+            pass
         if self.image:
-            self.image.name = str(self.pk) + "_" + str(self.user.get_username()) + '.' + self.image.name.split('.')[-1]
+            self.image.name = str(self.user.pk) + "_" + str(self.user.get_username()) + '_' + str(Post.count) + '.' + self.image.name.split('.')[-1]
+            Post.count += 1
         return super().save(force_insert=force_insert, force_update=force_update, using=using, update_fields=update_fields)
     
     class Meta:
