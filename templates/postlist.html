@@ -1,0 +1,11 @@
+<body dir="rtl" style="text-align:center;">
+{% for post in object_list %}
+    {% if post.image %}
+        <img src="{{ post.image.url }}" width=750 height=500>
+    {% endif %}
+    <h1> <a href="{% url 'post_detail' post.pk %}"> {{ post.title }} </a></h1>
+    <p> {{ post.body }} </p>
+    --------------------------------
+{% endfor %}
+</body>
+
