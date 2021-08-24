@@ -6,12 +6,12 @@ from django.core.exceptions import ValidationError
 
 class CustomAuthenticationForm(forms.Form):
     error_messages = {
-        'invalid_login': "لقب یا گذرواژه معتبر نیست",
+        'invalid_login': "ایمیل یا گذرواژه معتبر نیست",
         'inactive': "این حساب فعال نیست",
     }
 
     email = forms.EmailField(
-        label='یمیل',
+        label='ایمیل',
         widget=forms.TextInput(attrs={"autofocus": True}),
         max_length=150
     )
@@ -34,15 +34,16 @@ class CustomAuthenticationForm(forms.Form):
     def clean(self):
         email = self.cleaned_data.get('email')
         password = self.cleaned_data.get('password')
-
         if email is not None and password:
-            self.user_cache = authenticate(self.request, username=UserModel.objects.get(email=email).username, password=password)
-            print(self.user_cache)
+            try:
+                user = UserModel.objects.get(email=email)
+            except UserModel.DoesNotExist:
+                raise self.get_invalid_login_error()
+            self.user_cache = authenticate(self.request, username=user.get_username(), password=password)
             if self.user_cache is None:
                 raise self.get_invalid_login_error()
             else:
                 self.confirm_login_allowed(self.user_cache)
-
         return self.cleaned_data
     
     def get_invalid_login_error(self):
