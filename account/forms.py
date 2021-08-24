@@ -20,6 +20,7 @@ class CustomAuthenticationForm(forms.Form):
         strip=False,
         widget=forms.PasswordInput(attrs={'autocomplete': 'current-password'})
     )
+    remember_me = forms.BooleanField(required=False)
 
     def __init__(self, request=None, *args, **kwargs):
         """

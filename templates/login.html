@@ -33,6 +33,8 @@
 
       {{ form.email | add_class:"un" | attr:"placeholder:ایمیل"}}
       {{ form.password | add_class:"pass" | attr:"placeholder:گذرواژه"}}
+	  <label for="remember_me"> منو یادت باشه </label>
+	  <p> {{ form.remember_me | attr:"align:center" }} </p>
 
       <input class="submit" align="center" type="submit" value="ورود">
 

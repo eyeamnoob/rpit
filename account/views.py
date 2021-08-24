@@ -22,6 +22,13 @@ class CustomLoginView(LoginView):
         if self.request.user.is_authenticated:
             return redirect("account:panel")
         return super().get(request, *args, **kwargs)
+    
+    def form_valid(self, form):
+        remember_me = form.cleaned_data.get("remember_me")
+        if not remember_me:
+            self.request.session.set_expiry(0)
+            self.request.session.modified = True
+        return super().form_valid(form)
 
 
 class UserPanelView(LoginRequiredMixin, TemplateView):
