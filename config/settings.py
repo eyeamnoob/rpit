@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     #3rd parthy
     'sslserver',
     'widget_tweaks',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
