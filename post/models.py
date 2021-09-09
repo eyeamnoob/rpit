@@ -33,6 +33,7 @@ class Post(models.Model):
     user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
+        blank=True,
         related_name='User',
         related_query_name='User',
         verbose_name='کاربر'

@@ -23,7 +23,7 @@ urlpatterns = [
     path('account/', include('account.urls')),
     path('post/', include('post.urls')),
     path("api/", include('api.urls')),
-    path('api-auth/', include('rest_framework.urls')),
+    path('api/rest_auth/', include('rest_framework.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
