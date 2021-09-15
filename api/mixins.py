@@ -10,3 +10,8 @@ class AutoSetUserMixin:
         obj.validated_data["user"] = request.user
         obj.save()
         return Response(obj.data, status=status.HTTP_201_CREATED)
+
+
+class SerializerMethodMixin:
+    def get_user_username(self, obj):
+        return obj.user.username
