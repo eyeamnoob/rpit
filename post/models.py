@@ -2,7 +2,7 @@ from django.db import models
 from account.models import User
 from django.shortcuts import get_object_or_404
 import datetime
-
+from django.contrib.auth import get_user_model
 # Create your models here.
 
 class Post(models.Model):
@@ -34,8 +34,8 @@ class Post(models.Model):
         User,
         on_delete=models.CASCADE,
         blank=True,
-        related_name='User',
-        related_query_name='User',
+        related_name='post',
+        related_query_name='post',
         verbose_name='کاربر'
     )
     date = models.DateTimeField(
@@ -64,4 +64,48 @@ class Post(models.Model):
     class Meta:
         verbose_name = 'پست'
         verbose_name_plural = 'پست ها'
+        ordering = ['-date']
+
+
+class Comment(models.Model):
+    user = models.ForeignKey(get_user_model(),
+        on_delete=models.CASCADE,
+        related_name='comment',
+        related_query_name='comment',
+        verbose_name='کاربر',
+        blank=True
+    )
+    body = models.CharField(
+        max_length=150,
+        verbose_name='نظر'
+    )
+    reply_to = models.ForeignKey(
+        'self',
+        on_delete=models.CASCADE,
+        verbose_name='در پاسخ به',
+        related_name='comment',
+        related_query_name='comment',
+        blank=True,
+        null=True
+    )
+    date = models.DateTimeField(
+        auto_now_add=True,
+        verbose_name='تاریخ'
+    )
+    post = models.ForeignKey(
+        Post,
+        on_delete=models.CASCADE,
+        related_name='comment',
+        related_query_name='comment',
+        verbose_name='پست',
+        blank=True,
+        default=None
+    )
+
+    def __str__(self) -> str:
+        return str(self.user) + ': ' + str(self.body[0:10]) + '...'
+    
+    class Meta:
+        verbose_name = 'نظر'
+        verbose_name_plural = 'نظر ها'
         ordering = ['-date']
