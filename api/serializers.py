@@ -4,7 +4,7 @@ from . import mixins as my_mixins
 
 
 class PostSerializer(my_mixins.SerializerMethodMixin, serializers.ModelSerializer):
-    user = serializers.SerializerMethodField("get_user_username")
+    user = serializers.SerializerMethodField("get_username")
 
     class Meta:
         model = Post
@@ -17,9 +17,9 @@ class CommentSerializer(my_mixins.SerializerMethodMixin, serializers.ModelSerial
     
     def get_reply_to_body(self, obj):
         if obj.reply_to:
-            return obj.reply_to.body
+            return obj.reply_to.body[0:10] + '...'
 
-    user = serializers.SerializerMethodField('get_user_username')
+    user = serializers.SerializerMethodField("get_username")
     post = serializers.SerializerMethodField('get_post_title')
     reply_to = serializers.SerializerMethodField('get_reply_to_body')
 

@@ -1,4 +1,5 @@
 # from django.shortcuts import render
+from rest_framework.response import Response
 from api.serializers import CommentSerializer, PostSerializer
 from rest_framework.generics import ListCreateAPIView
 from rest_framework.generics import RetrieveUpdateDestroyAPIView
@@ -17,6 +18,6 @@ class PostRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
     serializer_class = PostSerializer
 
 
-class CommentListCreateAPIView(ListCreateAPIView):
+class CommentListCreateAPIView(my_mixins.AutoFillCommentFieldsMixin, ListCreateAPIView):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer

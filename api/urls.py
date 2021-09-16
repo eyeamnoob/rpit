@@ -7,7 +7,7 @@ app_name = "api"
 urlpatterns = [
     path('post/list/', my_view.PostListCreateAPIVeiw.as_view(), name="post_list"),
     path('post/retrieve/<int:pk>/', my_view.PostRetrieveUpdateDestroyAPIView.as_view(), name='post_retrieve'),
+    path('comment/list/', my_view.CommentListCreateAPIView.as_view(), name='comment_list'),
     path('token/', TokenObtainPairView.as_view(), name='token_obtain'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    path('comment/list/', my_view.CommentListCreateAPIView.as_view(), name='comment_list'),
 ]

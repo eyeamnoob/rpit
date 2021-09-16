@@ -98,8 +98,6 @@ class Comment(models.Model):
         related_name='comment',
         related_query_name='comment',
         verbose_name='پست',
-        blank=True,
-        default=None
     )
 
     def __str__(self) -> str:
