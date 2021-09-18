@@ -29,8 +29,8 @@ class Post(models.Model):
     like = models.ManyToManyField(
         get_user_model(),
         through='likeactivity',
-        related_name='LikeActivity',
-        related_query_name='likeactivity',
+        related_name='liked_posts',
+        related_query_name='liked_posts',
         verbose_name='پسند',
         default=None,
         help_text='تعداد افرادی که این پست را پسندیده اند',
@@ -128,7 +128,7 @@ class LikeActivity(models.Model):
     )
 
     def __str__(self) -> str:
-        return str(self.user.get_username()) + 'liked ' + str(self.post.title)
+        return str(self.user.get_username()) + ' liked ' + str(self.post.title)
     
     class Meta:
         ordering = ['-date']

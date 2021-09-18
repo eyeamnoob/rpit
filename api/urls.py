@@ -10,4 +10,5 @@ urlpatterns = [
     path('comment/list/', my_view.CommentListCreateAPIView.as_view(), name='comment_list'),
     path('token/', TokenObtainPairView.as_view(), name='token_obtain'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('like-dislike/<int:pk>/', my_view.LikeActivityAPIView.as_view(), name='like_activity'),
 ]

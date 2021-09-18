@@ -1,14 +1,18 @@
-from post.models import Post, Comment
+from post.models import LikeActivity, Post, Comment
 from rest_framework import serializers
 from . import mixins as my_mixins
 
 
 class PostSerializer(my_mixins.SerializerMethodMixin, serializers.ModelSerializer):
+    def get_like_count(self, obj):
+        return obj.like.all().count()
+
     user = serializers.SerializerMethodField("get_username")
+    like = serializers.SerializerMethodField("get_like_count")
 
     class Meta:
         model = Post
-        exclude = ['like']
+        fields = '__all__'
 
 
 class CommentSerializer(my_mixins.SerializerMethodMixin, serializers.ModelSerializer):
@@ -25,4 +29,10 @@ class CommentSerializer(my_mixins.SerializerMethodMixin, serializers.ModelSerial
 
     class Meta:
         model = Comment
+        fields = '__all__'
+
+
+class LikeActivitySeriallizer(serializers.ModelSerializer):
+    class Meta:
+        model = LikeActivity
         fields = '__all__'
