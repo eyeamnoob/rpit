@@ -8,7 +8,7 @@ class PostSerializer(my_mixins.SerializerMethodMixin, serializers.ModelSerialize
 
     class Meta:
         model = Post
-        fields = '__all__'
+        exclude = ['like']
 
 
 class CommentSerializer(my_mixins.SerializerMethodMixin, serializers.ModelSerializer):

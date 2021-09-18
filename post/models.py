@@ -1,8 +1,9 @@
 from django.db import models
+from django.db.models.fields import related
 from account.models import User
 from django.shortcuts import get_object_or_404
 import datetime
-from django.contrib.auth import get_user_model
+from django.contrib.auth import get_user, get_user_model
 # Create your models here.
 
 class Post(models.Model):
@@ -25,10 +26,14 @@ class Post(models.Model):
         verbose_name='متن پست',
         help_text='متن اصلی پست',
     )
-    like = models.PositiveBigIntegerField(
+    like = models.ManyToManyField(
+        get_user_model(),
+        through='likeactivity',
+        related_name='LikeActivity',
+        related_query_name='likeactivity',
         verbose_name='پسند',
-        default=0,
-        help_text='تعداد افرادی که از این پست خوششان آمده است',
+        default=None,
+        help_text='تعداد افرادی که این پست را پسندیده اند',
     )
     user = models.ForeignKey(
         User,
@@ -106,4 +111,24 @@ class Comment(models.Model):
     class Meta:
         verbose_name = 'نظر'
         verbose_name_plural = 'نظر ها'
+        ordering = ['-date']
+    
+
+class LikeActivity(models.Model):
+    user = models.ForeignKey(
+        get_user_model(),
+        on_delete=models.CASCADE
+    )
+    post = models.ForeignKey(
+        Post,
+        on_delete=models.CASCADE
+    )
+    date = models.DateTimeField(
+        auto_now=True
+    )
+
+    def __str__(self) -> str:
+        return str(self.user.get_username()) + 'liked ' + str(self.post.title)
+    
+    class Meta:
         ordering = ['-date']
