@@ -28,10 +28,10 @@ class AutoFillCommentFieldsMixin:
         post = get_object_or_404(Post, pk=int(request.data.get('post')))
         if request.data.get('reply_to') is not None:
             reply_to = get_object_or_404(Comment, pk=int(request.data.get('reply_to')))
+            if reply_to.post.id != post.pk:
+                return Response("نمیتوان از پستی، جواب یک کامنت در پست دیگری را داد", status=status.HTTP_400_BAD_REQUEST)
             obj.validated_data['reply_to'] = reply_to
         obj.validated_data['post'] = post
         obj.validated_data['user'] = request.user
-        print('------------------------------------------')
-        print(obj.save())
-        print('------------------------------------------')
+        obj.save()
         return Response(obj.data, status=status.HTTP_201_CREATED)
